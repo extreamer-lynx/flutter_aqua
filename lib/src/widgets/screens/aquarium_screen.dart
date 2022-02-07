@@ -79,8 +79,10 @@ class _AquariumScreenState extends State<AquariumScreen> {
                                     .toList());
                                 aquarium.remove(fish);
                                 TimerHelper().seconds(60).listen((seconds) {
-                                  if(seconds == 0) {
-                                    _fishGeneratorBloc.generateFish(1, boxConstraints.biggest);
+                                  if (seconds == 0 &&
+                                      aquarium.length < config.fishCount) {
+                                    _fishGeneratorBloc.generateFish(
+                                        1, boxConstraints.biggest);
                                   }
                                 });
                               },

@@ -78,25 +78,20 @@ class _FishComponentState extends State<FishComponent> {
             getFish.speed, getFish.direction, locationSnapshot.data!);
 
         if (locationSnapshot.data!
-                .isScreenTouchedY(maxSize: _screenSize, hitBox: fishSize) ||
-            locationSnapshot.data!
-                .isScreenTouchedX(maxSize: _screenSize, hitBox: fishSize)) {
+            .isScreenTouched(maxSize: _screenSize, hitBox: fishSize)) {
           _fishDirectionBloc.getNewRadius(locationSnapshot.data!);
+        } else {
+          getFish.location = locationSnapshot.data!;
         }
-
-        getFish.location = locationSnapshot.data!;
 
         final fishColideList = _colisionService.colideCheck(
             getFish.location, context.read<List<Fish>>());
 
         if (fishColideList.isNotEmpty) {
           for (var fishColide in fishColideList) {
-            if (fishColide.isVulturous &&
-                (fishColide.level > getFish.level + 1 ||
-                    (fishColide.level >= getFish.level &&
-                        !getFish.isVulturous))) {
+            if (getFish.enemyCheck(fishColide)) {
               widget.killFishCallback(getFish);
-              
+
               return Container();
             }
           }

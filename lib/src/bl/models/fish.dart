@@ -17,6 +17,10 @@ class Fish {
     required this.direction,
   });
 
+  bool enemyCheck(Fish enemyFish) =>
+      enemyFish.isVulturous && (enemyFish.level + 1 >= level && !isVulturous) ||
+      (enemyFish.level > level);
+
   set setNewDirection(int newDirection) => direction = newDirection;
 
   set setNewLocation(Location newLocation) => location = newLocation;

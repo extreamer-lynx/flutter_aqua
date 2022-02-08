@@ -33,7 +33,8 @@ class FishDirectionBloc {
     }
 
     if (location.x >= (maxSize.width - hitBox) &&
-        !location.isScreenTouchedY(maxSize: maxSize, hitBox: hitBox)) {
+        !(location.y >= (maxSize.height - hitBox) ||
+            (location.y <= minSize.height))) {
       return _fishDirectionController
           .add(randomNumberGenerator.nextInt(180) + 90);
     }

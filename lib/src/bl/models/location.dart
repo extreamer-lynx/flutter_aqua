@@ -6,15 +6,10 @@ class Location {
 
   Location({required this.x, required this.y});
 
-  bool isScreenTouchedX(
+  bool isScreenTouched(
           {required Size maxSize,
           Size minSize = const Size(0, 0),
           required double hitBox}) =>
-      x >= (maxSize.width - hitBox) || x <= minSize.width;
-
-  bool isScreenTouchedY(
-          {required Size maxSize,
-          Size minSize = const Size(0, 0),
-          required double hitBox}) =>
-      y >= (maxSize.height - hitBox) || y <= minSize.height;
+      (x >= (maxSize.width - hitBox) || x <= minSize.width) ||
+      (y >= (maxSize.height - hitBox) || y <= minSize.height);
 }

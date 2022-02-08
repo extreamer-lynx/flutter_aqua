@@ -50,6 +50,10 @@ class _AquariumScreenState extends State<AquariumScreen> {
   Widget build(_) => Scaffold(
         body: SafeArea(
           child: LayoutBuilder(builder: (context, boxConstraints) {
+            if (boxConstraints.biggest == boxConstraints.smallest) {
+              return Container();
+            }
+
             if (aquarium.isEmpty) {
               _fishGeneratorBloc.generateFish(
                   config.fishCount, boxConstraints.biggest);
@@ -57,8 +61,8 @@ class _AquariumScreenState extends State<AquariumScreen> {
 
             return MultiProvider(
               providers: [
-                Provider(create: (_) => boxConstraints.biggest),
-                Provider(create: (_) => aquarium),
+                Provider<Size>(create: (_) => boxConstraints.biggest),
+                Provider<List<Fish>>(create: (_) => aquarium),
               ],
               child: StreamBuilder<List<Fish>>(
                   stream: _aquariumController.stream,
